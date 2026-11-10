@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Красный проект: жизнь в утопии</title>
+<meta name="description" content="Канал на Дзене об СССР: как задумывали и как вышло. Цены в копейках, правки цензуры и соседи по даче, которые оказались космонавтами.">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:"Fira Sans Extra Condensed";src:url("fonts/FiraSansExtraCondensed-ExtraBold.ttf") format("truetype");font-weight:800;font-display:swap}
+@font-face{font-family:"Fira Sans Extra Condensed";src:url("fonts/FiraSansExtraCondensed-SemiBold.ttf") format("truetype");font-weight:600;font-display:swap}
+@font-face{font-family:"PT Serif";src:url("fonts/PT_Serif-Web-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"PT Serif";src:url("fonts/PT_Serif-Web-Italic.ttf") format("truetype");font-weight:400;font-style:italic;font-display:swap}
+
+/* Макет: стена подъезда. Побелка сверху, толстая линия, масляная панель снизу.
+   Палитра и шрифты только из бренд-папки; один светлый вид, как в памятке. */
+:root{
+  color-scheme:light;
+  --pobelka:#FFFFFF;
+  --panel:#A9C4B4;
+  --kumach:#C4161C;
+  --sinka:#14365F;
+  --head:"Fira Sans Extra Condensed","Arial Narrow",sans-serif;
+  --text:"PT Serif",Georgia,serif;
+  --gutter:clamp(16px,4vw,48px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--pobelka);color:var(--sinka);font:400 19px/1.6 var(--text)}
+a{color:inherit}
+img,svg{display:block;max-width:100%}
+p{margin:0}
+h1,h2,h3{font-family:var(--head);margin:0;text-wrap:balance}
+:focus-visible{outline:3px solid var(--kumach);outline-offset:3px}
+
+.in{
+  max-width:1240px;margin-inline:auto;
+  padding-left:max(var(--gutter),env(safe-area-inset-left,0px));
+  padding-right:max(var(--gutter),env(safe-area-inset-right,0px));
+}
+h2{font-weight:800;font-size:clamp(40px,6vw,68px);line-height:1.02}
+
+/* Панель начинается с той самой линии, что отделяет краску от побелки */
+.panel{background:var(--panel);border-top:6px solid var(--sinka)}
+
+.btn{
+  display:inline-block;padding:14px 26px 15px;background:var(--kumach);color:var(--pobelka);
+  font:600 25px/1.1 var(--head);text-decoration:none;border:0;cursor:pointer;
+}
+.btn:hover{background:var(--sinka)}
+.btn:focus-visible{outline-color:var(--sinka)}
+
+/* Первый экран */
+.hero .in{
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);
+  align-items:center;padding-block:clamp(32px,5vw,72px) clamp(40px,6vw,80px);
+}
+h1{font-weight:800;font-size:clamp(84px,15.5vw,204px);line-height:.84;letter-spacing:-.005em}
+.tagline{font-style:italic;font-size:clamp(30px,4vw,52px);line-height:1.1;margin-top:.45em}
+.lead{font-size:clamp(20px,1.9vw,23px);line-height:1.5;max-width:30em;margin-top:28px}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;margin-top:32px}
+.quiet{font:600 23px/1.2 var(--head);text-underline-offset:4px}
+.quiet:hover{color:var(--kumach)}
+.star{width:100%;max-width:560px;justify-self:end}
+
+/* Единственное движение на странице: левая половина заливается снизу вверх,
+   правая остаётся чертежом. В покое звезда в точности совпадает со знаком. */
+@media (prefers-reduced-motion:no-preference){
+  .pour{animation:pour 1.5s .35s cubic-bezier(.45,.05,.3,1) both}
+  .ghost{animation:ghost .35s 1.7s linear both}
+}
+@keyframes pour{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes ghost{from{opacity:1}to{opacity:0}}
+.ghost{opacity:0}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Как вышло и как задумывали: слева залито, справа пунктир, как в знаке */
+.plans .in{padding-block:clamp(40px,6vw,72px) clamp(56px,8vw,96px)}
+.plans h2{max-width:14em}
+.ledger{margin:clamp(24px,3vw,40px) 0 0;padding:0;list-style:none}
+.ledger-head,.ledger a{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+.ledger-head{font:600 23px/1.2 var(--head);padding-bottom:10px}
+.ledger-head span:last-child{padding-left:clamp(20px,3vw,40px);border-left:2px dashed transparent}
+.ledger a{text-decoration:none;border-top:1px solid var(--panel)}
+.ledger li:first-child a{border-top:2px solid var(--sinka)}
+.out{
+  padding:22px clamp(20px,3vw,40px) 26px 0;color:var(--kumach);
+  font:800 clamp(30px,3.6vw,46px)/1.06 var(--head);text-wrap:balance;
+}
+.plan{padding:24px 0 26px clamp(20px,3vw,40px);border-left:2px dashed var(--sinka);font-style:italic;font-size:21px;line-height:1.45}
+.plan span{display:block;margin-top:8px;font:600 21px/1.2 var(--head);text-decoration:underline;text-underline-offset:4px}
+.ledger a:hover .out{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:6px}
+
+/* Посёлок */
+.scene .in{
+  display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);
+  padding-block:clamp(48px,7vw,88px) clamp(40px,5vw,64px);align-items:start;
+}
+.scene h2{grid-column:1/-1;max-width:13em;font-size:clamp(46px,8vw,104px);line-height:.96}
+.frames{display:grid;gap:14px;max-width:34em;font-size:21px;line-height:1.5}
+.line{font:600 clamp(32px,4vw,44px)/1.1 var(--head);margin-block:6px}
+.frames .btn{justify-self:start;margin-top:14px}
+figure{margin:0}
+figure img{width:100%;height:auto;border:8px solid var(--pobelka)}
+figcaption{font-style:italic;font-size:17px;line-height:1.45;margin-top:12px;max-width:30em}
+
+.neighbours .in{padding-block:0 clamp(56px,8vw,96px)}
+.neighbours h3{font-weight:800;font-size:clamp(34px,4.4vw,52px);line-height:1.05}
+.neighbours .note{max-width:36em;margin-top:12px}
+.people{list-style:none;margin:28px 0 0;padding:0;border-bottom:2px solid var(--sinka)}
+.people a{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:8px clamp(20px,3vw,40px);
+  padding:16px 0 18px;border-top:2px solid var(--sinka);text-decoration:none;align-items:baseline;
+}
+.people b{font:600 clamp(27px,2.8vw,34px)/1.1 var(--head)}
+.people span{max-width:40em;line-height:1.5}
+.people a:hover b{text-decoration:underline;text-underline-offset:4px}
+
+/* Все статьи */
+.archive .in{padding-block:clamp(56px,8vw,96px)}
+.filters{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:20px}
+.filters button{
+  appearance:none;background:none;border:0;border-bottom:4px solid transparent;color:var(--sinka);
+  padding:4px 0 5px;font:600 25px/1.15 var(--head);cursor:pointer;
+}
+.filters button:hover{border-bottom-color:var(--panel)}
+.filters button[aria-pressed="true"]{border-bottom-color:var(--kumach)}
+.filters small{font:inherit;margin-left:.3em}
+.titles{list-style:none;margin:26px 0 0;padding:0;columns:2;column-gap:clamp(32px,5vw,72px);border-top:2px solid var(--sinka)}
+.titles li{break-inside:avoid;border-bottom:1px solid var(--panel)}
+.titles a{display:block;padding:12px 0 13px;text-decoration:none;font:600 clamp(22px,2vw,25px)/1.2 var(--head)}
+.titles a:hover{color:var(--kumach);text-decoration:underline;text-underline-offset:3px}
+
+/* Поддержать канал */
+.support .in{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(32px,5vw,72px);
+  padding-block:clamp(56px,7vw,88px);align-items:start;
+}
+.support .btn{margin-top:26px}
+.ways{display:grid;gap:26px}
+.ways h3{font-weight:600;font-size:clamp(28px,3vw,34px);line-height:1.1;margin-bottom:6px}
+.ways p{max-width:36em}
+.copy-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-top:12px}
+.url{font-size:17px;overflow-wrap:anywhere;user-select:all}
+.copy{
+  appearance:none;background:var(--pobelka);color:var(--sinka);border:2px solid var(--sinka);
+  padding:7px 16px 8px;font:600 21px/1.1 var(--head);cursor:pointer;
+}
+.copy:hover{background:var(--sinka);color:var(--pobelka)}
+
+footer{background:var(--sinka);color:var(--pobelka);font-size:16px;line-height:1.45}
+footer .in{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justify-content:space-between;padding-block:32px}
+footer img{width:min(340px,100%);height:auto}
+footer p{max-width:30em}
+footer :focus-visible{outline-color:var(--pobelka)}
+
+@media (max-width:860px){
+  .hero .in,.scene .in,.support .in{grid-template-columns:minmax(0,1fr)}
+  .star{width:min(320px,100%);justify-self:start;grid-row:1}
+  .titles{columns:1}
+  .scene figure{max-width:520px}
+}
+@media (max-width:620px){
+  body{font-size:18px}
+  .star{width:min(270px,100%)}
+  h1{font-size:clamp(76px,25vw,150px)}
+  .ledger-head{display:none}
+  .ledger a{grid-template-columns:minmax(0,1fr)}
+  .out{padding:18px 0 10px}
+  .plan{padding:2px 0 4px 16px;margin-bottom:20px}
+  .people a{grid-template-columns:minmax(0,1fr)}
+  .btn{width:100%;text-align:center}
+}
+</style>
+<link rel="stylesheet" href="hero.css">
+</head>
+<body>
+
+<header class="ih-root">
+  <div class="ih-shell">
+    <section class="ih-hero" aria-label="О канале">
+      <div class="ih-copy">
+        <div class="ih-band">
+          <h1 class="ih-h1">
+            <span class="ih-h1-top">Красный проект</span>
+            <span class="ih-h1-acc" id="ih-acc"><span class="ih-word">жизнь в утопии</span></span>
+          </h1>
+        </div>
+        <div class="ih-body">
+          <p class="ih-lede">Канал об СССР: как задумывали и как вышло. С ценами в копейках, правками цензуры и соседями по даче, которые оказались космонавтами.</p>
+          <div class="ih-ctas">
+            <a class="ih-btn ih-btn-main" href="https://dzen.ru/id/6aa2862b57f63f06de853de9" target="_blank" rel="noopener">Подписаться на Дзене<svg class="ih-arr" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <span class="ih-frame">
+              <span class="ih-c ih-c-tl" aria-hidden="true"></span><span class="ih-c ih-c-tr" aria-hidden="true"></span><span class="ih-c ih-c-bl" aria-hidden="true"></span><span class="ih-c ih-c-br" aria-hidden="true"></span>
+              <button type="button" class="ih-btn ih-btn-ghost" id="ih-open"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.8v8.4L10 6z" fill="currentColor"/></svg>Выполнить план</button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="ih-art">
+        <svg class="ih-star" viewBox="-6 -6 524 524" role="img" aria-label="Звезда: левая половина красная, правая осталась чертежом">
+          <g fill="none" stroke="#14365F">
+            <path d="M256 41 A215 215 0 0 1 256 471" stroke-width="1.43" stroke-dasharray="5.72 5.72"/>
+            <line x1="256" y1="19.5" x2="256" y2="41" stroke-width="1.43" stroke-dasharray="13 4.16 2.08 4.16"/>
+            <line x1="256" y1="338.12" x2="256" y2="492.5" stroke-width="1.43" stroke-dasharray="13 4.16 2.08 4.16"/>
+            <line x1="256" y1="256" x2="460.48" y2="189.56" stroke-width="1.43" stroke-dasharray="5.72 5.72"/>
+            <line x1="256" y1="256" x2="382.37" y2="429.94" stroke-width="1.43" stroke-dasharray="5.72 5.72"/>
+            <g stroke-width="2.6" stroke-dasharray="8.84 5.9">
+              <line x1="256" y1="41" x2="304.27" y2="189.56"/>
+              <line x1="304.27" y1="189.56" x2="460.48" y2="189.56"/>
+              <line x1="460.48" y1="189.56" x2="334.1" y2="281.38"/>
+              <line x1="334.1" y1="281.38" x2="382.37" y2="429.94"/>
+              <line x1="382.37" y1="429.94" x2="256" y2="338.12"/>
+              <path class="ghost" d="M256 41 207.73 189.56 51.52 189.56 177.9 281.38 129.63 429.94 256 338.12"/>
+            </g>
+          </g>
+          <polygon class="pour" points="256,41 207.73,189.56 51.52,189.56 177.9,281.38 129.63,429.94 256,338.12" fill="#C4161C"/>
+        </svg>
+      </div>
+    </section>
+  </div>
+  <div class="ih-modal" id="ih-modal" hidden>
+    <div class="ih-dialog" role="dialog" aria-modal="true" aria-label="Выполнение плана">
+      <div class="ih-dialog-head">
+        <span class="ih-status"><i class="ih-live" id="ih-live"></i><span id="ih-status-text">План выполняется</span></span>
+        <button type="button" class="ih-close" id="ih-close" aria-label="Закрыть"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <ol class="ih-steps" id="ih-steps"></ol>
+      <div class="ih-bar"><i id="ih-bar"></i></div>
+      <div class="ih-dialog-foot"><span id="ih-foot"></span><button type="button" class="ih-btn ih-btn-ghost" id="ih-replay" disabled>Ещё раз</button></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="plans" aria-labelledby="plans-title">
+  <div class="in">
+    <h2 id="plans-title">Что вышло из великих планов</h2>
+    <ul class="ledger">
+      <li class="ledger-head" aria-hidden="true"><span>Как вышло</span><span>Как задумывали</span></li>
+      <li><a href="https://dzen.ru/a/aq_lQMfq0jMRvxae" target="_blank" rel="noopener">
+        <div class="out">750 тысяч жили отдельно от 280 миллионов</div>
+        <div class="plan">Общество равных<span>Жизнь номенклатуры</span></div>
+      </a></li>
+      <li><a href="https://dzen.ru/a/arjOECN9xwWIlTs6" target="_blank" rel="noopener">
+        <div class="out">«Лоскутное одеяло» ценой в 20 миллиардов рублей</div>
+        <div class="plan">Сеть, которая соединит предприятия, региональные центры и Москву<span>ОГАС, советский интернет</span></div>
+      </a></li>
+      <li><a href="https://dzen.ru/a/ar-zTzdT9mbPyPm9" target="_blank" rel="noopener">
+        <div class="out">СССР едва не утонул в початках</div>
+        <div class="plan">Накормить скот, а значит, дать больше молока и мяса<span>Кукурузная эпопея</span></div>
+      </a></li>
+      <li><a href="https://dzen.ru/a/as3M9vfDGRDByFdn" target="_blank" rel="noopener">
+        <div class="out">За всё бесплатное платил сам гражданин</div>
+        <div class="plan">Квартира, медицина и вуз бесплатно<span>3 мифа о бесплатном СССР</span></div>
+      </a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="scene panel" aria-labelledby="scene-title">
+  <div class="in">
+    <h2 id="scene-title">Лето. Послеобеденная жара. Мне двенадцать лет.</h2>
+    <div class="frames">
+      <p>Залив Икшанского водохранилища. Сидим с пацанами на ржавом понтоне, закинули удочки. Час сидим. Клёва нет, и это мягко сказано.</p>
+      <p>Тут здоровенный скоростной катер. Волна такая, что мало не показалось. Лески перепутались, понтон залило водой. Катер разворачивается и снова нас окатывает. В катере сидит абсолютно лысый тип.</p>
+      <p>Серёжка не выдержал. Вскочил и заорал во всю глотку:</p>
+      <p class="line">- Скотина лысая!</p>
+      <p>Катер сбавляет ход. Разворачивается. Идёт прямо к нам. Убежать хочется, но удочки жалко. Катер швартуется, и из него выходит Никита Сергеевич Хрущёв. Он улыбается и спрашивает по-простому:</p>
+      <p class="line">- Как клёв?</p>
+      <a class="btn" href="https://dzen.ru/a/aqWzeQ4ns2W1JJ46" target="_blank" rel="noopener">Читать, чем кончилось</a>
+    </div>
+    <figure>
+      <img src="img/parom.jpg" width="866" height="648" alt="Чёрно-белый снимок: дощатый настил парома, на краю сидит мужчина, рядом стоит женщина в пальто, из окна автомобиля выглядывает ребёнок">
+      <figcaption>На пароме. Когда шли суда, паромщик опускал трос на дно канала, и ожидание могло длиться до полутора часов.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="neighbours" style="background:var(--panel)" aria-labelledby="neighbours-title">
+  <div class="in">
+    <h3 id="neighbours-title">Соседи по посёлку «Лётчик-испытатель»</h3>
+    <p class="note">Реальных испытателей там было меньше половины. Что видел сам, так и пишу. Что знаю с чужих слов, тоже помечаю.</p>
+    <ul class="people">
+      <li><a href="https://dzen.ru/a/arauRmrOLTyVDtx0" target="_blank" rel="noopener"><b>Константин Арцеулов</b><span>Сосед по даче, внук Айвазовского, первым вывел самолёт из штопора. Ни разу не видел его рассерженным.</span></a></li>
+      <li><a href="https://dzen.ru/a/arpJ3mdExDQ1wRAU" target="_blank" rel="noopener"><b>Алексей Пьецух</b><span>Обложил бутылочной данью весь посёлок и построил дом из бутылок по 12 копеек. «Да это разве жизнь, одни удовольствия».</span></a></li>
+      <li><a href="https://dzen.ru/a/atoIP-3q8R0f04xv" target="_blank" rel="noopener"><b>Алексей Леонов</b><span>Дом на склоне бывшего карьера и в нём галерея космических картин.</span></a></li>
+      <li><a href="https://dzen.ru/a/as86yHM7ZxTpfoJ_" target="_blank" rel="noopener"><b>Андриян Николаев</b><span>Председатель правления посёлка. Кого ещё ставить во главе, лётчика-космонавта или профессора?</span></a></li>
+      <li><a href="https://dzen.ru/a/atH3PY2n7k2Qt4QQ" target="_blank" rel="noopener"><b>Александр Голованов</b><span>Шестидесятилетие маршала: весь день над посёлком летают самолёты, с вертолётов на парашютах сбрасывают подарки.</span></a></li>
+      <li><a href="https://dzen.ru/a/asIx72o6rz0poNKa" target="_blank" rel="noopener"><b>Святослав Фёдоров</b><span>Офтальмолог СССР №1, для посёлка просто «дядя Слава».</span></a></li>
+      <li><a href="https://dzen.ru/a/asjTIN46WAH4Rhcb" target="_blank" rel="noopener"><b>Семейство Аджубеев</b><span>Купили здесь дачу. С внуками Хрущёва не дружил, но приятельствовал.</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="archive" id="stati" aria-labelledby="archive-title">
+  <div class="in">
+    <h2 id="archive-title">Все статьи</h2>
+    <div class="filters" role="group" aria-label="Темы статей">
+      <button type="button" id="f-all" data-f="all" aria-pressed="true">Все<small>37</small></button>
+      <button type="button" id="f-people" data-f="people" aria-pressed="false">Люди<small>12</small></button>
+      <button type="button" id="f-culture" data-f="culture" aria-pressed="false">Культура<small>11</small></button>
+      <button type="button" id="f-life" data-f="life" aria-pressed="false">Быт<small>7</small></button>
+      <button type="button" id="f-power" data-f="power" aria-pressed="false">Власть, деньги, техника<small>7</small></button>
+    </div>
+    <ul class="titles" id="titles">
+      <li data-c="culture"><a href="https://dzen.ru/a/audPV-DRN1wZAXjL" target="_blank" rel="noopener">Рок-клубы 80-х: 4 города, где на самом деле зарождался русский рок</a></li>
+      <li data-c="people"><a href="https://dzen.ru/a/auLTsrHj8QOHNysY" target="_blank" rel="noopener">Георгий Жжёнов: 17 лет лагерей, большая сцена и 90 прожитых лет</a></li>
+      <li data-c="life"><a href="https://dzen.ru/a/auCvmziLZ3FNCc2Q" target="_blank" rel="noopener">Пионерия: 3 детских страха, о которых молчали учителя и родители</a></li>
+      <li data-c="power"><a href="https://dzen.ru/a/at3Pmqca6RJHikwY" target="_blank" rel="noopener">128 народов СССР: как общая жизнь соседствовала с депортациями и межнациональными спорами</a></li>
+      <li data-c="people"><a href="https://dzen.ru/a/atoIP-3q8R0f04xv" target="_blank" rel="noopener">Алексей Леонов: 12 минут в открытом космосе и дом на краю карьера</a></li>
+      <li data-c="life"><a href="https://dzen.ru/a/athFjS9Hg283D9rs" target="_blank" rel="noopener">Дворовое детство в СССР: 7 забав, для которых не нужны были гаджеты</a></li>
+      <li data-c="culture"><a href="https://dzen.ru/a/atT_ImDX1lL6nLsQ" target="_blank" rel="noopener">Полочное кино СССР: 15 фильмов, которые запрещали, прятали и возвращали зрителям</a></li>
+      <li data-c="people"><a href="https://dzen.ru/a/atTn4nM7ZxTpj2eR" target="_blank" rel="noopener">Святослав Фёдоров: 10 достижений офтальмолога СССР №1</a></li>
+      <li data-c="culture"><a href="https://dzen.ru/a/atObz9DbdTdkrGt4" target="_blank" rel="noopener">Книжный дефицит в СССР: 21 автор, которых доставали через связи и макулатуру</a></li>
+      <li data-c="people"><a href="https://dzen.ru/a/atH3PY2n7k2Qt4QQ" target="_blank" rel="noopener">Взлёт и опала: за 3,5 года от пилота до Главного маршала - почему Сталин сломал Голованова?</a></li>
+      <li data-c="life"><a href="https://dzen.ru/a/atEd9tDbdTdkSyKD" target="_blank" rel="noopener">Виноделие и самогоноварение в СССР: 2 разные культуры за одним столом</a></li>
+      <li data-c="people"><a href="https://dzen.ru/a/as86yHM7ZxTpfoJ_" target="_blank" rel="noopener">Космонавт Андриян Николаев: 18 суток в космосе и много лет одиночества</a></li>
+      <li data-c="life"><a href="https://dzen.ru/a/as4LuwcTOXAp1rcW" target="_blank" rel="noopener">Джинсы в СССР: 5 тайных маршрутов к заветной паре, от бартера до фарцы</a></li>
+      <li data-c="power"><a href="https://dzen.ru/a/as3M9vfDGRDByFdn" target="_blank" rel="noopener">Квартира, медицина, вуз: 3 мифа о бесплатном СССР и суровая правда</a></li>
+      <li data-c="power"><a href="https://dzen.ru/a/astd3IZFzXeQPyq8" target="_blank" rel="noopener">Гигантские советские ЭВМ: 3 причины, почему М-1 и Сетунь остались в тени</a></li>
+      <li data-c="people"><a href="https://dzen.ru/a/asjTIN46WAH4Rhcb" target="_blank" rel="noopener">Без 5 минут министр иностранных дел СССР: судьба семейства Аджубеев</a></li>
+      <li data-c="life"><a href="https://dzen.ru/a/asdVrVafAhIitqTj" target="_blank" rel="noopener">Советский Новый год: как оливье и «Ирония судьбы» стали его неотъемлемой частью</a></li>
+      <li data-c="people"><a href="https://dzen.ru/a/asaTIo1vvFa6-15C" target="_blank" rel="noopener">Святослав Фёдоров: 2 версии гибели офтальмолога СССР №1</a></li>
+      <li data-c="life"><a href="https://dzen.ru/a/asPhWwefyWUOh6Fe" target="_blank" rel="noopener">Очереди в СССР: 7 негласных законов, которые знал каждый</a></li>
+      <li data-c="people"><a href="https://dzen.ru/a/asIx72o6rz0poNKa" target="_blank" rel="noopener">Офтальмолог СССР №1: как Фёдорову жилось в нашем посёлке</a></li>
+      <li data-c="people"><a href="https://dzen.ru/a/asEWY8fxumrb6aEO" target="_blank" rel="noopener">Офтальмолог СССР №1: как «дядя Слава Фёдоров» стал прекрасным наездником</a></li>
+      <li data-c="power"><a href="https://dzen.ru/a/ar-zTzdT9mbPyPm9" target="_blank" rel="noopener">«Кукурузная эпопея»: 7 причин, почему СССР едва не утонул в початках</a></li>
+      <li data-c="culture"><a href="https://dzen.ru/a/ar6XisUGr2Ycyqh1" target="_blank" rel="noopener">Советский анекдот: 5 случаев, когда народ смеялся над тем, о чём нельзя было говорить</a></li>
+      <li data-c="culture"><a href="https://dzen.ru/a/arwkfz2GhX5B4ntw" target="_blank" rel="noopener">«Современник» и Таганка: 9 театров, где очереди за билетами не кончались</a></li>
+      <li data-c="people"><a href="https://dzen.ru/a/arpJ3mdExDQ1wRAU" target="_blank" rel="noopener">ПАИ-69, мотоцикл «Ява» и бутылочный дом: судьба Алексея Пьецуха</a></li>
+      <li data-c="culture"><a href="https://dzen.ru/a/arj4l-d3NgFtBUL1" target="_blank" rel="noopener">60 минут под нож: что Госкино не понравилось в легендарном фильме «Москва слезам не верит»</a></li>
+      <li data-c="power"><a href="https://dzen.ru/a/arjOECN9xwWIlTs6" target="_blank" rel="noopener">ОГАС: как амбициозный советский интернет ценой в 20 миллиардов рублей стал «лоскутным одеялом»</a></li>
+      <li data-c="people"><a href="https://dzen.ru/a/arauRmrOLTyVDtx0" target="_blank" rel="noopener">0 наград СССР и мировой триумф: как внук Айвазовского расплатился за своё бесконечное небо</a></li>
+      <li data-c="culture"><a href="https://dzen.ru/a/arZyVbMxCgr-_hcF" target="_blank" rel="noopener">Ножницы для сказки: 7 советских мультфильмов, где цензура вырезала даже смех</a></li>
+      <li data-c="culture"><a href="https://dzen.ru/a/arVkKAtLlk-_EwbB" target="_blank" rel="noopener">От «13-ти» до Сталкера: история голливудского плагиата</a></li>
+      <li data-c="life"><a href="https://dzen.ru/a/arQNBKwRSRVHEHNW" target="_blank" rel="noopener">Ателье, дома быта и «муж на час»: как 280 миллионов в СССР ремонтировали свою жизнь</a></li>
+      <li data-c="power"><a href="https://dzen.ru/a/arLKBb88Hmh1DEOL" target="_blank" rel="noopener">Реальные зарплаты в СССР: что скрывали цифры с 60-х по 80-е</a></li>
+      <li data-c="culture"><a href="https://dzen.ru/a/aqp6EVXQw3_6twWK" target="_blank" rel="noopener">«Заложники образа»: как одна роль сажает актёра в клетку</a></li>
+      <li data-c="power"><a href="https://dzen.ru/a/aq_lQMfq0jMRvxae" target="_blank" rel="noopener">Жизнь номенклатуры: 7 вещей, которые отделяли 750 тысяч от 280 миллионов</a></li>
+      <li data-c="culture"><a href="https://dzen.ru/a/aqpVyiGjsz0hoACo" target="_blank" rel="noopener">Что вырезали из «Бриллиантовой руки»: 27 правок цензуры</a></li>
+      <li data-c="people"><a href="https://dzen.ru/a/aqWzeQ4ns2W1JJ46" target="_blank" rel="noopener">Как я Никиту Хрущёва впервые повстречал</a></li>
+      <li data-c="culture"><a href="https://dzen.ru/a/aqp_Yh-SRhNV1y7A" target="_blank" rel="noopener">Как Высоцкий чуть не потерял роль Жеглова</a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="support panel" id="podderzhka" aria-labelledby="support-title">
+  <div class="in">
+    <div>
+      <h2 id="support-title">Как поддержать канал</h2>
+      <a class="btn" href="https://dzen.ru/id/6aa2862b57f63f06de853de9" target="_blank" rel="noopener">Подписаться на Дзене</a>
+    </div>
+    <div class="ways">
+      <div>
+        <h3>Поставьте реакцию</h3>
+        <p>Под статьёй, которая зацепила. Или разозлила, это тоже считается.</p>
+      </div>
+      <div>
+        <h3>Расскажите свою историю</h3>
+        <p>А у вас в семье есть истории о случайных встречах с известными людьми? Делитесь в комментариях, интересно послушать.</p>
+      </div>
+      <div>
+        <h3>Перешлите тому, кто это помнит</h3>
+        <p>Или тому, кто спорит, что всё было иначе.</p>
+        <div class="copy-row">
+          <button type="button" class="copy" id="copy-link">Скопировать ссылку на канал</button>
+          <span class="url" id="channel-url">https://dzen.ru/id/6aa2862b57f63f06de853de9</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="in">
+    <img src="img/logo-light.svg" width="340" height="82" alt="Красный проект: жизнь в утопии">
+    <p>Шрифты Fira Sans и PT Serif распространяются по лицензии SIL Open Font License.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.filters button');
+  var items = document.querySelectorAll('#titles li');
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = b.getAttribute('data-f');
+      buttons.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      items.forEach(function (li) { li.hidden = f !== 'all' && li.getAttribute('data-c') !== f; });
+    });
+  });
+
+  var copy = document.getElementById('copy-link');
+  var url = document.getElementById('channel-url');
+  var label = copy.textContent;
+  function done(text) {
+    copy.textContent = text;
+    setTimeout(function () { copy.textContent = label; }, 2200);
+  }
+  function selectUrl() {
+    var r = document.createRange();
+    r.selectNodeContents(url);
+    var s = window.getSelection();
+    s.removeAllRanges();
+    s.addRange(r);
+    done('Выделено, нажмите Ctrl+C');
+  }
+  copy.addEventListener('click', function () {
+    if (!navigator.clipboard) { selectUrl(); return; }
+    navigator.clipboard.writeText(url.textContent).then(function () { done('Ссылка скопирована'); }, selectUrl);
+  });
+})();
+</script>
+<script src="hero.js"></script>
+</body>
+</html>
